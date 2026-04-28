@@ -871,20 +871,32 @@ let editKey = null;
 let ms = { sober:false, money:false, exercise:false, note:'' };
 
 // ─── PERSIST ───────────────────────────────────────────────────
-function load()    { try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { data={}; } }
-function persist() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+async function persist() {
+  await setDoc(doc(db, "usuarios", "ernesto"), {
+    data: data
+  });
+}
 
 // ─── INIT ──────────────────────────────────────────────────────
-function init() {
+async function init() {
   const savedTheme = localStorage.getItem('theme');
-if(savedTheme === 'light'){
-  document.body.classList.add('light');
-}  
-  load();
+  if(savedTheme === 'light'){
+    document.body.classList.add('light');
+  }
+
+  const d = await getDoc(doc(db, "usuarios", "ernesto"));
+
+  if (d.exists()) {
+    data = d.data().data;
+  } else {
+    data = {};
+  }
+
   const now  = new Date();
   viewYear   = now.getFullYear();
   viewMonth  = now.getMonth();
-  render();
+
+  render(); // 🔥 IMPORTANTÍSIMO
 }
 
 // ─── COUNTER ───────────────────────────────────────────────────
@@ -1273,7 +1285,7 @@ function renderProgress(){
       </div>
     `).reverse().join('');
 }
-init();
+window.addEventListener("load", init);
 </script>
 <div style="
   text-align:center;
@@ -1294,6 +1306,27 @@ init();
     Developed by Ernesto Elizondo
   </div>
 </div>
-</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBnC_th3fMlgzMRWzoSIFShDAkeD8YHCHc",
+  authDomain: "calendario-racha.firebaseapp.com",
+  projectId: "calendario-racha",
+  storageBucket: "calendario-racha.appspot.com",
+  messagingSenderId: "118388279866",
+  appId: "1:118388279866:web:7bf83a4be5af8907ab8303"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// 👇 HACERLO GLOBAL
+window.db = db;
+window.setDoc = setDoc;
+window.getDoc = getDoc;
+window.doc = doc;
+</script>
 </body>
 </html>
