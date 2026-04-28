@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Racha Personal</title>
@@ -704,6 +705,83 @@
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
  }
+/* 📱 MOBILE FIXES (CORREGIDO) */
+@media (max-width: 768px) {
+
+  body {
+    padding: 10px;
+  }
+
+  /* Header */
+  .header {
+    padding: 10px 14px;
+  }
+
+  .header-title {
+    font-size: 13px;
+  }
+
+  /* Wrapper */
+  .wrapper {
+    padding: 16px 10px 40px;
+  }
+
+  /* NAV */
+  .nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-month {
+    font-size: 18px;
+  }
+
+  .nav-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  /* CALENDARIO */
+  .cal-grid {
+    gap: 4px;
+  }
+
+  .day-cell {
+    min-height: 60px;
+    font-size: 11px;
+    padding: 5px;
+  }
+
+  /* STATS */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-num {
+    font-size: 28px;
+  }
+
+  /* NOTAS */
+  .notes-section {
+    padding: 16px;
+  }
+
+  textarea {
+    font-size: 14px;
+  }
+
+  /* MODAL */
+  .modal {
+    width: 95%;
+    padding: 18px;
+  }
+
+}
 </style>
 </head>
 <body>
